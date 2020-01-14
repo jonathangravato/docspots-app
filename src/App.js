@@ -3,6 +3,75 @@ import { Component } from 'react';
 import { Stitch, AnonymousCredential, RemoteMongoClient } from 'mongodb-stitch-browser-sdk';
 import './App.css';
 
+import ProductTable from './components/ProviderTable'
+
+/**
+ <div className="uk-container uk-container-center">
+        <h1 className="uk-h2">DocSpots - Provider Locator</h1>
+        <div className="search-form">
+          <form onSubmit={this.handleSubmit}>
+            <label name="currentAddress">Starting Address:</label>
+            <input 
+              name="currentAddress" 
+              type="text"
+              size="95" 
+              onChange={this.handleInputChange} 
+            />
+            <label name="distance">Distance from Starting Address:</label> 
+            <input 
+              type="number" 
+              name="distance" 
+              min="5" 
+              max="20" 
+              step="5" 
+              onChange={this.handleInputChange} 
+            />
+          </form>
+        </div>
+        <div className="uk-overflow-auto">
+          <table id="provider-table" className="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-striped">
+            <thead>
+                <tr>
+                    <th>Provider</th>
+                    <th>Group</th>
+                    <th>City</th>
+                    <th>Zipcode</th>
+                    <th>Phone</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {providers.map(provider => (
+              <tr key={provider._id.toString()}>
+                <td>{provider.provider}</td>
+                <td>{provider.providerGroup}</td>
+                <td>{provider.city}</td>
+                <td>{provider.zipcode}</td>
+                <td>{this.formatPhoneNumber(provider.phone)}</td>
+                <td>{provider.website && (
+                  <a className="uk-button uk-button-default" href={provider.website} target="_blank" rel="noopener noreferrer">Website</a>
+                )}</td>
+                <td>
+                  <span
+                    uk-icon="icon: pencil" 
+                    className="uk-button uk-button-default uk-button-small uk-button-primary"
+                    onClick={() => this.editProvider( provider._id.toString() )}
+                  ></span>
+                  <span
+                    uk-icon="icon: trash"
+                    className="uk-icon-trash uk-button uk-button-default uk-button-small uk-button-danger"
+                    onClick={() => this.deleteProvider( provider._id.toString() )}
+                  ></span>
+                </td>
+              </tr>
+            ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+ */
+
 class App extends Component {
 
   constructor() {
@@ -88,79 +157,19 @@ class App extends Component {
   
   render() {
 
-    const { providers } = this.state
+    // const { providers } = this.state
 
     return (
-      <div className="uk-container uk-container-center">
-        <h1 className="uk-h2">DocSpots - Provider Locator</h1>
-        <div className="search-form">
-          <form onSubmit={this.handleSubmit}>
-            <label name="currentAddress">Starting Address:</label>
-            <input 
-              name="currentAddress" 
-              type="text"
-              size="95" 
-              onChange={this.handleInputChange} 
-            />
-            <label name="distance">Distance from Starting Address:</label> 
-            <input 
-              type="number" 
-              name="distance" 
-              min="5" 
-              max="20" 
-              step="5" 
-              onChange={this.handleInputChange} 
-            />
-          </form>
+      
+        <div>
+          <ProductTable />
         </div>
-        <div className="uk-overflow-auto">
-          <table id="provider-table" className="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-striped">
-            <thead>
-                <tr>
-                    <th>Provider</th>
-                    <th>Group</th>
-                    {/* <th>Address</th> */}
-                    <th>City</th>
-                    <th>Zipcode</th>
-                    <th>Phone</th>
-                    {/* <th>Working Days</th> */}
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-            {providers.map(provider => (
-              <tr key={provider._id.toString()}>
-                <td>{provider.provider}</td>
-                <td>{provider.providerGroup}</td>
-                {/* <td>{provider.address + ' ' + provider.address2}</td> */}
-                <td>{provider.city}</td>
-                <td>{provider.zipcode}</td>
-                <td>{this.formatPhoneNumber(provider.phone)}</td>
-                {/* <td>{provider.workingDays}</td> */}
-                <td>{provider.website && (
-                  <a className="uk-button uk-button-default" href={provider.website} target="_blank" rel="noopener noreferrer">Website</a>
-                )}</td>
-                <td>
-                  <span
-                    uk-icon="icon: pencil" 
-                    className="uk-button uk-button-default uk-button-small uk-button-primary"
-                    onClick={() => this.editProvider( provider._id.toString() )}
-                  ></span>
-                  <span
-                    uk-icon="icon: trash"
-                    className="uk-icon-trash uk-button uk-button-default uk-button-small uk-button-danger"
-                    onClick={() => this.deleteProvider( provider._id.toString() )}
-                  ></span>
-                </td>
-              </tr>
-            ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      
     );
   }
 }
 
 export default App;
+
+
+
